@@ -175,3 +175,21 @@ test('validateRouterConfig rejects unknown defaults.track', () => {
 
   assert.equal(validation.errors.includes('defaults.track refers to unknown track missing'), true);
 });
+
+test('bundled auto-media balanced preset validates and routes', () => {
+  const presetDir = path.resolve(__dirname, '../../../configs/presets/auto-media-balanced');
+  const loaded = loadRouterConfig({ configDir: presetDir });
+  const validation = validateRouterConfig(loaded);
+  const router = createPolicyRouter({
+    defaults: loaded.defaults,
+    capabilities: loaded.capabilities,
+    tracks: loaded.tracks,
+    invoke: async ({ candidate }) => ({ provider: candidate.name })
+  });
+  const route = router.resolve('localization.translate');
+
+  assert.equal(validation.errors.length, 0);
+  assert.equal(route.track, 'free');
+  assert.equal(route.fallbackTrack, 'paid');
+  assert.ok(route.candidates.length >= 1);
+});

@@ -100,10 +100,24 @@ It is not trying to replace LiteLLM or Portkey feature-for-feature.
 ## Project docs
 
 - `docs/architecture.md`
+- `docs/presets.md`
 - `CONTRIBUTING.md`
 - `CHANGELOG.md`
 - `ROADMAP.md`
 - `RELEASING.md`
+
+## Presets
+
+The repository now includes sanitized presets derived from the `auto-media` routing strategy:
+
+- `configs/presets/auto-media-balanced`
+- `configs/presets/auto-media-paid-default`
+
+To generate a machine-specific preview from a local `auto-media` checkout:
+
+```bash
+npm run import:auto-media
+```
 
 ## Current shape
 

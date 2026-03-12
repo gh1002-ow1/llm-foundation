@@ -1,0 +1,42 @@
+{
+  "tracks": {
+    "paid": [
+      {
+        "name": "baidu-coding-plan-glm-5",
+        "gateway": "portkey",
+        "provider": "openai",
+        "apiKeyEnv": "BAIDU_CODING_PLAN_API_KEY",
+        "customHost": "https://qianfan.baidubce.com/v2/coding",
+        "model": "glm-5",
+        "tags": [
+          "paid",
+          "baidu"
+        ]
+      },
+      {
+        "name": "baidu-coding-plan-deepseek-v3-2",
+        "gateway": "portkey",
+        "provider": "openai",
+        "apiKeyEnv": "BAIDU_CODING_PLAN_API_KEY",
+        "customHost": "https://qianfan.baidubce.com/v2/coding",
+        "model": "deepseek-v3.2",
+        "tags": [
+          "paid",
+          "baidu"
+        ]
+      },
+      {
+        "name": "aliyuncs-qwen35-plus",
+        "gateway": "portkey",
+        "provider": "openai",
+        "apiKeyEnv": "ALIYUNCS_API_KEY",
+        "customHost": "https://coding.dashscope.aliyuncs.com/v1",
+        "model": "qwen3.5-plus",
+        "tags": [
+          "paid",
+          "aliyuncs"
+        ]
+      }
+    ]
+  }
+}

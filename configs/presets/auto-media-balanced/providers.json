@@ -1,0 +1,104 @@
+{
+  "tracks": {
+    "free": [
+      {
+        "name": "aisa-qwen3-coder-plus",
+        "gateway": "portkey",
+        "provider": "openai",
+        "apiKeyEnv": "AISA_API_KEY",
+        "customHost": "https://api.aisa.one/v1",
+        "model": "qwen3-coder-plus",
+        "tags": [
+          "free",
+          "aisa"
+        ]
+      },
+      {
+        "name": "groq-llama3-70b-8192",
+        "gateway": "portkey",
+        "provider": "openai",
+        "apiKeyEnv": "GROQ_API_KEY",
+        "customHost": "https://api.groq.com/openai/v1",
+        "model": "llama3-70b-8192",
+        "tags": [
+          "free",
+          "groq"
+        ]
+      },
+      {
+        "name": "openrouter-free-router",
+        "gateway": "portkey",
+        "provider": "openai",
+        "apiKeyEnv": "OPENROUTER_API_KEY",
+        "customHost": "https://openrouter.ai/api/v1",
+        "model": "openrouter/free",
+        "tags": [
+          "free",
+          "openrouter"
+        ]
+      },
+      {
+        "name": "openrouter-stepfun-3.5-flash-free",
+        "gateway": "portkey",
+        "provider": "openai",
+        "apiKeyEnv": "OPENROUTER_API_KEY",
+        "customHost": "https://openrouter.ai/api/v1",
+        "model": "stepfun/step-3.5-flash:free",
+        "tags": [
+          "free",
+          "openrouter"
+        ]
+      }
+    ],
+    "paid": [
+      {
+        "name": "baidu-coding-plan-glm-5",
+        "gateway": "portkey",
+        "provider": "openai",
+        "apiKeyEnv": "BAIDU_CODING_PLAN_API_KEY",
+        "customHost": "https://qianfan.baidubce.com/v2/coding",
+        "model": "glm-5",
+        "tags": [
+          "paid",
+          "baidu"
+        ]
+      },
+      {
+        "name": "baidu-coding-plan-deepseek-v3-2",
+        "gateway": "portkey",
+        "provider": "openai",
+        "apiKeyEnv": "BAIDU_CODING_PLAN_API_KEY",
+        "customHost": "https://qianfan.baidubce.com/v2/coding",
+        "model": "deepseek-v3.2",
+        "tags": [
+          "paid",
+          "baidu"
+        ]
+      },
+      {
+        "name": "aliyuncs-qwen35-plus",
+        "gateway": "portkey",
+        "provider": "openai",
+        "apiKeyEnv": "ALIYUNCS_API_KEY",
+        "customHost": "https://coding.dashscope.aliyuncs.com/v1",
+        "model": "qwen3.5-plus",
+        "tags": [
+          "paid",
+          "aliyuncs"
+        ]
+      },
+      {
+        "name": "aliyuncs-qwen3-max",
+        "gateway": "portkey",
+        "provider": "openai",
+        "apiKeyEnv": "ALIYUNCS_API_KEY",
+        "customHost": "https://coding.dashscope.aliyuncs.com/v1",
+        "model": "qwen3-max-2026-01-23",
+        "tags": [
+          "paid",
+          "aliyuncs"
+        ]
+      }
+    ]
+  }
+}

@@ -17,3 +17,5 @@ Added:
 - GitHub Actions CI
 - contribution guide
 - architecture notes
+- sanitized `auto-media` presets
+- local `auto-media` import script

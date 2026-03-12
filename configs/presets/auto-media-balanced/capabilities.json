@@ -1,0 +1,17 @@
+{
+  "generation.longform": {
+    "description": "Long-form generation for article and content creation."
+  },
+  "generation.repair": {
+    "description": "Repair or refine generated content."
+  },
+  "localization.translate": {
+    "description": "Translate and lightly localize existing text."
+  },
+  "scoring.light": {
+    "description": "Light scoring and ranking style tasks."
+  },
+  "embedding.dedup": {
+    "description": "Embedding generation for deduplication and similarity."
+  }
+}
