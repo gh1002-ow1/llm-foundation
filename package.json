@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Application-facing LLM policy router with pluggable gateway backends.",
   "private": true,
+  "bin": {
+    "llm-foundation": "./bin/llm-foundation.js"
+  },
   "packageManager": "npm@11.11.0",
   "engines": {
     "node": ">=20"
@@ -32,6 +35,7 @@
     "example:node:live": "node examples/node-basic/index.js --live-gateway",
     "example:node:live-portkey": "node examples/node-basic/index.js --live-gateway",
     "smoke:live": "node scripts/live-smoke.js",
-    "import:auto-media": "node scripts/import-auto-media.js"
+    "import:auto-media": "node scripts/import-auto-media.js",
+    "cli": "node bin/llm-foundation.js"
   }
 }

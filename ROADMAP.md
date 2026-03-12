@@ -4,7 +4,7 @@
 
 - split router execution into typed chat and embedding helpers
 - add metrics and route event hooks
-- add config CLI for validation and simulation
+- expand the CLI into a fully guided config workflow
 - add publish metadata for workspace packages
 - add a LiteLLM real smoke path
 

@@ -35,6 +35,27 @@ npm test
 npm run example:node
 ```
 
+## CLI
+
+The project is designed to stay simple to configure from the terminal.
+
+Current commands:
+
+```bash
+npm run cli -- init
+npm run cli -- validate --config-dir ./llm-config
+npm run cli -- simulate --config-dir ./llm-config --capability localization.translate
+npm run cli -- import-auto-media
+npm run cli -- smoke-live
+```
+
+The `init` flow is interactive by default and writes:
+
+- `capabilities.json`
+- `policies.json`
+- `providers.json`
+- `.env.example`
+
 To run the example against a live local gateway:
 
 ```bash

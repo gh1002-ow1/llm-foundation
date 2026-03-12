@@ -10,11 +10,23 @@ function readJson(filePath, fallback = {}) {
   }
 }
 
+function hydrateProvider(provider = {}) {
+  const apiKey = provider.apiKey
+    || (provider.apiKeyEnv ? String(process.env[provider.apiKeyEnv] || '') : '');
+
+  return {
+    ...provider,
+    ...(apiKey ? { apiKey } : {})
+  };
+}
+
 function normalizeTrackProviders(tracks = {}) {
   const normalized = {};
   for (const [track, providers] of Object.entries(tracks || {})) {
     normalized[track] = Array.isArray(providers)
-      ? providers.filter((provider) => provider && provider.name && provider.model)
+      ? providers
+        .map((provider) => hydrateProvider(provider))
+        .filter((provider) => provider && provider.name && provider.model)
       : [];
   }
   return normalized;

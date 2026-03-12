@@ -193,3 +193,24 @@ test('bundled auto-media balanced preset validates and routes', () => {
   assert.equal(route.fallbackTrack, 'paid');
   assert.ok(route.candidates.length >= 1);
 });
+
+test('loadRouterConfig hydrates apiKey from apiKeyEnv', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'policy-router-env-'));
+  process.env.TEST_LLM_FOUNDATION_KEY = 'env-secret';
+  fs.writeFileSync(path.join(dir, 'providers.json'), JSON.stringify({
+    tracks: {
+      free: [{ name: 'free-1', model: 'm-free-1', apiKeyEnv: 'TEST_LLM_FOUNDATION_KEY' }]
+    }
+  }));
+  fs.writeFileSync(path.join(dir, 'policies.json'), JSON.stringify({
+    defaults: { track: 'free' },
+    capabilities: {
+      'localization.translate': { track: 'free' }
+    }
+  }));
+
+  const loaded = loadRouterConfig({ configDir: dir });
+
+  assert.equal(loaded.tracks.free[0].apiKey, 'env-secret');
+  delete process.env.TEST_LLM_FOUNDATION_KEY;
+});
