@@ -1,0 +1,21 @@
+{
+  "tracks": {
+    "free": [
+      {
+        "name": "openrouter-free",
+        "provider": "openai",
+        "model": "openrouter/auto",
+        "gateway": "portkey",
+        "customHost": "https://openrouter.ai/api/v1"
+      }
+    ],
+    "paid": [
+      {
+        "name": "openai-primary",
+        "provider": "openai",
+        "model": "gpt-4o-mini",
+        "gateway": "litellm"
+      }
+    ]
+  }
+}

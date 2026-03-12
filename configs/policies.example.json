@@ -1,0 +1,20 @@
+{
+  "defaults": {
+    "track": "free",
+    "fallbackTrackByTrack": {
+      "free": "paid"
+    }
+  },
+  "capabilities": {
+    "generation.longform": {
+      "track": "paid"
+    },
+    "localization.translate": {
+      "track": "free",
+      "fallbackTrack": "paid"
+    },
+    "embedding.dedup": {
+      "track": "paid"
+    }
+  }
+}

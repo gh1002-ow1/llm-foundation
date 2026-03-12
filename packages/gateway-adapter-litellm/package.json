@@ -1,0 +1,10 @@
+{
+  "name": "@llm-foundation/gateway-adapter-litellm",
+  "version": "0.1.0",
+  "description": "LiteLLM Gateway adapter for llm-foundation.",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "license": "MIT"
+}

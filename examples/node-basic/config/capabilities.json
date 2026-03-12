@@ -1,0 +1,11 @@
+{
+  "generation.longform": {
+    "description": "High-quality generation workloads."
+  },
+  "localization.translate": {
+    "description": "Translation or light rewriting workloads."
+  },
+  "embedding.dedup": {
+    "description": "Embedding workloads."
+  }
+}

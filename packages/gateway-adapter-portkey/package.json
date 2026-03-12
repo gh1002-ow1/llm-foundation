@@ -1,0 +1,10 @@
+{
+  "name": "@llm-foundation/gateway-adapter-portkey",
+  "version": "0.1.0",
+  "description": "Portkey Gateway adapter for llm-foundation.",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "license": "MIT"
+}

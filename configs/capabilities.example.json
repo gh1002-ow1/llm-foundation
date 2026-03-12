@@ -1,0 +1,11 @@
+{
+  "generation.longform": {
+    "description": "High-quality content generation with stronger models."
+  },
+  "localization.translate": {
+    "description": "Translation or light rewriting where cost usually matters."
+  },
+  "embedding.dedup": {
+    "description": "Embedding generation for similarity and deduplication."
+  }
+}

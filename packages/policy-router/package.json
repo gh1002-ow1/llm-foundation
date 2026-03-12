@@ -1,0 +1,10 @@
+{
+  "name": "@llm-foundation/policy-router",
+  "version": "0.1.0",
+  "description": "Capability-based LLM policy router.",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "license": "MIT"
+}

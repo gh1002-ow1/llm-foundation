@@ -1,0 +1,36 @@
+{
+  "name": "llm-foundation",
+  "version": "0.1.0",
+  "description": "Application-facing LLM policy router with pluggable gateway backends.",
+  "private": true,
+  "packageManager": "npm@11.11.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/llm-foundation.git"
+  },
+  "keywords": [
+    "llm",
+    "gateway",
+    "router",
+    "portkey",
+    "litellm",
+    "ai-infra"
+  ],
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "test": "node --test packages/*/test/*.test.js",
+    "test:policy-router": "node --test packages/policy-router/test/*.test.js",
+    "test:adapters": "node --test packages/gateway-adapter-*/test/*.test.js",
+    "example:node": "node examples/node-basic/index.js",
+    "example:node:live": "node examples/node-basic/index.js --live-gateway",
+    "example:node:live-portkey": "node examples/node-basic/index.js --live-gateway",
+    "smoke:live": "node scripts/live-smoke.js"
+  }
+}

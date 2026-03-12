@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://llm-foundation.dev/schemas/policy-router.schema.json",
+  "title": "Policy Router Configuration",
+  "type": "object",
+  "required": [
+    "tracks",
+    "capabilities"
+  ],
+  "properties": {
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "track": {
+          "type": "string"
+        },
+        "fallbackTrackByTrack": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "track": {
+            "type": "string"
+          },
+          "fallbackTrack": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "allowPaidEscalation": {
+            "type": "boolean"
+          },
+          "allowFreeDegrade": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "tracks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "name",
+            "model"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "gateway": {
+              "type": "string"
+            },
+            "provider": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
