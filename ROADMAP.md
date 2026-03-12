@@ -1,11 +1,11 @@
 # Roadmap
 
-## Near term
+## Post-1.0 near term
 
 - split router execution into typed chat and embedding helpers
 - add metrics and route event hooks
-- expand the CLI into a fully guided config workflow
-- add publish metadata for workspace packages
+- expand the CLI into a more guided config workflow
+- add publish metadata and public repo URLs for workspace packages
 - add a LiteLLM real smoke path
 
 ## Mid term

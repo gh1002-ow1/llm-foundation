@@ -1,6 +1,6 @@
 {
   "name": "llm-foundation",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Application-facing LLM policy router with pluggable gateway backends.",
   "private": true,
   "bin": {
@@ -12,7 +12,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-org/llm-foundation.git"
+    "url": "git+https://github.com/gh1002-ow1/llm-foundation.git"
+  },
+  "homepage": "https://github.com/gh1002-ow1/llm-foundation",
+  "bugs": {
+    "url": "https://github.com/gh1002-ow1/llm-foundation/issues"
   },
   "keywords": [
     "llm",
@@ -34,8 +38,10 @@
     "example:node": "node examples/node-basic/index.js",
     "example:node:live": "node examples/node-basic/index.js --live-gateway",
     "example:node:live-portkey": "node examples/node-basic/index.js --live-gateway",
+    "gateway:portkey:dev": "node scripts/dev-portkey-gateway.js",
     "smoke:live": "node scripts/live-smoke.js",
     "import:auto-media": "node scripts/import-auto-media.js",
-    "cli": "node bin/llm-foundation.js"
+    "cli": "node bin/llm-foundation.js",
+    "doctor": "node bin/llm-foundation.js doctor"
   }
 }

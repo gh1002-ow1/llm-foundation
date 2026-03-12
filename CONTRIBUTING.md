@@ -14,6 +14,13 @@ npm test
 npm run example:node
 ```
 
+Recommended local live loop:
+
+```bash
+npm run gateway:portkey:dev
+PORTKEY_BASE_URL=http://127.0.0.1:8787/v1 npm run example:node:live
+```
+
 ## Project rules
 
 - keep gateway integrations behind adapter interfaces
@@ -26,3 +33,4 @@ npm run example:node
 - add or update tests for behavior changes
 - keep README and config examples in sync with public API changes
 - if adding a new gateway adapter, include one smoke-style unit test
+- if changing routing or local live behavior, update `doctor`, examples, and related docs together

@@ -10,6 +10,33 @@ function readJson(filePath, fallback = {}) {
   }
 }
 
+function parseEnvFile(filePath) {
+  const values = {};
+  if (!fs.existsSync(filePath)) return values;
+
+  const lines = fs.readFileSync(filePath, 'utf8').split(/\r?\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const index = trimmed.indexOf('=');
+    if (index <= 0) continue;
+    const key = trimmed.slice(0, index).trim();
+    const value = trimmed.slice(index + 1).trim();
+    if (!key) continue;
+    values[key] = value;
+  }
+
+  return values;
+}
+
+function applyEnvValues(values = {}) {
+  for (const [key, value] of Object.entries(values)) {
+    if (!(key in process.env)) {
+      process.env[key] = value;
+    }
+  }
+}
+
 function hydrateProvider(provider = {}) {
   const apiKey = provider.apiKey
     || (provider.apiKeyEnv ? String(process.env[provider.apiKeyEnv] || '') : '');
@@ -94,6 +121,9 @@ function loadRouterConfig(options = {}) {
   const providersFile = options.providersFile || path.join(configDir, 'providers.json');
   const policiesFile = options.policiesFile || path.join(configDir, 'policies.json');
   const capabilitiesFile = options.capabilitiesFile || path.join(configDir, 'capabilities.json');
+  const envLocalFile = options.envLocalFile || path.join(configDir, '.env.local');
+
+  applyEnvValues(parseEnvFile(envLocalFile));
 
   const providers = readJson(providersFile, {});
   const policies = readJson(policiesFile, {});
@@ -110,5 +140,6 @@ function loadRouterConfig(options = {}) {
 
 module.exports = {
   loadRouterConfig,
-  validateRouterConfig
+  validateRouterConfig,
+  parseEnvFile
 };

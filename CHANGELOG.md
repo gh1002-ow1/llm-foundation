@@ -2,9 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-## 0.1.0 - 2026-03-12
+## 1.0.0 - 2026-03-12
 
-Initial standalone repository shape.
+First public open-source release.
 
 Added:
 
@@ -19,3 +19,8 @@ Added:
 - architecture notes
 - sanitized `auto-media` presets
 - local `auto-media` import script
+- CLI `doctor` workflow
+- non-interactive `init` workflow with env assignment
+- local Portkey-compatible development gateway
+- scenario-driven README and integration docs
+- live-path regression coverage for the development gateway
