@@ -8,7 +8,9 @@ const {
   createPolicyRouter,
   createPolicyRouterFromConfig,
   loadRouterConfig,
-  validateRouterConfig
+  validateRouterConfig,
+  hasProviderUpstream,
+  requiresProviderUpstream
 } = require('../src');
 
 function buildRouter(invoke) {
@@ -213,4 +215,35 @@ test('loadRouterConfig hydrates apiKey from apiKeyEnv', () => {
 
   assert.equal(loaded.tracks.free[0].apiKey, 'env-secret');
   delete process.env.TEST_LLM_FOUNDATION_KEY;
+});
+
+test('validateRouterConfig does not warn for litellm providers without provider base url', () => {
+  const validation = validateRouterConfig({
+    defaults: {
+      track: 'paid'
+    },
+    capabilities: {
+      'generation.longform': {
+        track: 'paid'
+      }
+    },
+    tracks: {
+      paid: [
+        {
+          name: 'openai-primary',
+          model: 'gpt-4o-mini',
+          gateway: 'litellm'
+        }
+      ]
+    }
+  });
+
+  assert.equal(validation.warnings.includes('track paid provider openai-primary has no provider upstream config'), false);
+});
+
+test('provider upstream helpers only require upstream config for portkey-style providers', () => {
+  assert.equal(requiresProviderUpstream({ gateway: 'portkey' }), true);
+  assert.equal(requiresProviderUpstream({ gateway: 'litellm' }), false);
+  assert.equal(hasProviderUpstream({ customHost: 'https://example.com/v1' }), true);
+  assert.equal(hasProviderUpstream({ gateway: 'portkey' }), false);
 });

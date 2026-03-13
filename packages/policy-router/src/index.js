@@ -1,4 +1,9 @@
-const { loadRouterConfig, validateRouterConfig } = require('./config');
+const {
+  loadRouterConfig,
+  validateRouterConfig,
+  hasProviderUpstream,
+  requiresProviderUpstream
+} = require('./config');
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -157,5 +162,7 @@ module.exports = {
   createPolicyRouter,
   createPolicyRouterFromConfig,
   loadRouterConfig,
-  validateRouterConfig
+  validateRouterConfig,
+  hasProviderUpstream,
+  requiresProviderUpstream
 };

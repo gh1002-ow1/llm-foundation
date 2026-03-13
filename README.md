@@ -119,7 +119,9 @@ For automation, `init` also supports:
 The `doctor` command checks:
 
 - config validity
+- per-provider readiness by gateway requirements
 - missing provider env vars
+- planned capability routes and fallback tracks
 - local gateway reachability for `portkey` and `litellm`
 
 For CI or offline checks:

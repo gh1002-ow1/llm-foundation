@@ -8,7 +8,9 @@ const { stdin, stdout } = require('node:process');
 const {
   createPolicyRouterFromConfig,
   loadRouterConfig,
-  validateRouterConfig
+  validateRouterConfig,
+  hasProviderUpstream,
+  requiresProviderUpstream
 } = require('../packages/policy-router/src');
 const { importAutoMedia } = require('../scripts/lib/import-auto-media-lib');
 
@@ -243,15 +245,23 @@ function buildProviderReadiness(loaded = {}) {
   const rows = [];
   for (const [track, providers] of Object.entries(loaded.tracks || {})) {
     for (const provider of providers || []) {
+      const needsProviderUpstream = requiresProviderUpstream(provider);
+      const hasUpstream = hasProviderUpstream(provider);
       rows.push({
         track,
         name: provider.name,
         model: provider.model,
         apiKeyEnv: provider.apiKeyEnv || null,
         hasApiKey: Boolean(provider.apiKey),
-        hasBaseUrl: Boolean(provider.customHost || provider.baseUrl),
+        requiresProviderUpstream: needsProviderUpstream,
+        hasBaseUrl: hasUpstream,
         gateway: provider.gateway || 'unspecified',
-        ok: Boolean(provider.model && provider.name && (provider.customHost || provider.baseUrl) && (provider.apiKey || !provider.apiKeyEnv))
+        ok: Boolean(
+          provider.model
+          && provider.name
+          && (!needsProviderUpstream || hasUpstream)
+          && (provider.apiKey || !provider.apiKeyEnv)
+        )
       });
     }
   }

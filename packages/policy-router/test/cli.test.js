@@ -36,6 +36,25 @@ function writeConfig(dir) {
   }));
 }
 
+function writeLitellmConfig(dir) {
+  fs.writeFileSync(path.join(dir, 'providers.json'), JSON.stringify({
+    tracks: {
+      paid: [{ name: 'openai-primary', model: 'gpt-4o-mini', gateway: 'litellm' }]
+    }
+  }));
+  fs.writeFileSync(path.join(dir, 'policies.json'), JSON.stringify({
+    defaults: {
+      track: 'paid'
+    },
+    capabilities: {
+      'generation.longform': { track: 'paid' }
+    }
+  }));
+  fs.writeFileSync(path.join(dir, 'capabilities.json'), JSON.stringify({
+    'generation.longform': { description: 'longform' }
+  }));
+}
+
 test('cli validate prints validation summary', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'llm-foundation-cli-'));
   writeConfig(dir);
@@ -178,4 +197,23 @@ test('cli doctor fails when provider env vars are missing', () => {
   assert.equal(parsed.ok, false);
   assert.equal(parsed.envStatus.some((item) => item.ok === false), true);
   assert.equal(parsed.providerReadiness.some((item) => item.hasApiKey === false), true);
+});
+
+test('cli validate treats litellm providers without provider base url as ready', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'llm-foundation-cli-litellm-'));
+  writeLitellmConfig(dir);
+
+  const output = execFileSync('node', [
+    cliPath,
+    'validate',
+    '--config-dir',
+    dir
+  ], { encoding: 'utf8', cwd: path.resolve(__dirname, '../../..') });
+
+  const parsed = JSON.parse(output);
+  assert.equal(parsed.validation.warnings.length, 0);
+  assert.equal(parsed.providerReadiness.length, 1);
+  assert.equal(parsed.providerReadiness[0].gateway, 'litellm');
+  assert.equal(parsed.providerReadiness[0].requiresProviderUpstream, false);
+  assert.equal(parsed.providerReadiness[0].ok, true);
 });

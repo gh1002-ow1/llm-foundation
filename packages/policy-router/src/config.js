@@ -59,6 +59,20 @@ function normalizeTrackProviders(tracks = {}) {
   return normalized;
 }
 
+function hasProviderUpstream(provider = {}) {
+  return Boolean(
+    provider.customHost
+    || provider.baseUrl
+    || provider.portkeyConfig
+    || (Array.isArray(provider.targets) && provider.targets.length > 0)
+  );
+}
+
+function requiresProviderUpstream(provider = {}) {
+  const gateway = String(provider.gateway || '').trim();
+  return gateway === 'portkey';
+}
+
 function validateRouterConfig(config = {}) {
   const errors = [];
   const warnings = [];
@@ -104,8 +118,8 @@ function validateRouterConfig(config = {}) {
       if (!provider.apiKey && provider.apiKeyEnv) {
         warnings.push(`track ${track} provider ${provider.name} has no resolved value for ${provider.apiKeyEnv}`);
       }
-      if (!provider.customHost && !provider.baseUrl) {
-        warnings.push(`track ${track} provider ${provider.name} has no customHost/baseUrl`);
+      if (requiresProviderUpstream(provider) && !hasProviderUpstream(provider)) {
+        warnings.push(`track ${track} provider ${provider.name} has no provider upstream config`);
       }
     }
   }
@@ -147,5 +161,7 @@ function loadRouterConfig(options = {}) {
 module.exports = {
   loadRouterConfig,
   validateRouterConfig,
-  parseEnvFile
+  parseEnvFile,
+  hasProviderUpstream,
+  requiresProviderUpstream
 };
