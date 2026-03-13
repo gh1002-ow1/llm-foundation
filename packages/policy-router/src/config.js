@@ -101,6 +101,12 @@ function validateRouterConfig(config = {}) {
     for (const provider of providers) {
       if (!provider.name) errors.push(`track ${track} contains provider without name`);
       if (!provider.model) errors.push(`track ${track} contains provider without model`);
+      if (!provider.apiKey && provider.apiKeyEnv) {
+        warnings.push(`track ${track} provider ${provider.name} has no resolved value for ${provider.apiKeyEnv}`);
+      }
+      if (!provider.customHost && !provider.baseUrl) {
+        warnings.push(`track ${track} provider ${provider.name} has no customHost/baseUrl`);
+      }
     }
   }
 

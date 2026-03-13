@@ -239,6 +239,41 @@ function summarizeTracks(loaded = {}) {
   );
 }
 
+function buildProviderReadiness(loaded = {}) {
+  const rows = [];
+  for (const [track, providers] of Object.entries(loaded.tracks || {})) {
+    for (const provider of providers || []) {
+      rows.push({
+        track,
+        name: provider.name,
+        model: provider.model,
+        apiKeyEnv: provider.apiKeyEnv || null,
+        hasApiKey: Boolean(provider.apiKey),
+        hasBaseUrl: Boolean(provider.customHost || provider.baseUrl),
+        gateway: provider.gateway || 'unspecified',
+        ok: Boolean(provider.model && provider.name && (provider.customHost || provider.baseUrl) && (provider.apiKey || !provider.apiKeyEnv))
+      });
+    }
+  }
+  return rows;
+}
+
+function buildRoutePlans(loaded = {}) {
+  const router = createPolicyRouterFromConfig({
+    configDir: loaded.configDir,
+    invoke: async () => ({ ok: true })
+  });
+  return Object.keys(loaded.capabilities || {}).sort().map((capability) => {
+    const route = router.resolve(capability);
+    return {
+      capability,
+      track: route.track,
+      fallbackTrack: route.fallbackTrack,
+      providers: (route.candidates || []).map((provider) => provider.name)
+    };
+  });
+}
+
 async function probeUrl(url, timeoutMs = 1500) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -337,7 +372,8 @@ function handleValidate(args) {
   console.log(JSON.stringify({
     configDir,
     validation,
-    tracks: summarizeTracks(loaded)
+    tracks: summarizeTracks(loaded),
+    providerReadiness: buildProviderReadiness(loaded)
   }, null, 2));
   if (validation.errors.length > 0) {
     process.exitCode = 1;
@@ -432,7 +468,9 @@ async function handleDoctor(args) {
     configDir,
     validation,
     tracks: summarizeTracks(loaded),
+    providerReadiness: buildProviderReadiness(loaded),
     envStatus,
+    routePlans: buildRoutePlans(loaded),
     probes,
     ok: validation.errors.length === 0 && envStatus.every((item) => item.ok) && probes.every((item) => item.ok !== false)
   };

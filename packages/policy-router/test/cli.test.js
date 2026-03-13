@@ -50,6 +50,8 @@ test('cli validate prints validation summary', () => {
   const parsed = JSON.parse(output);
   assert.equal(parsed.validation.errors.length, 0);
   assert.equal(parsed.tracks.free, 1);
+  assert.equal(Array.isArray(parsed.providerReadiness), true);
+  assert.equal(parsed.providerReadiness.length, 2);
 });
 
 test('cli simulate prints dry-run result', () => {
@@ -155,6 +157,8 @@ test('cli doctor succeeds with env coverage when probes are skipped', () => {
   assert.equal(parsed.ok, true);
   assert.equal(parsed.envStatus.length, 2);
   assert.equal(parsed.envStatus.every((item) => item.ok), true);
+  assert.equal(Array.isArray(parsed.routePlans), true);
+  assert.equal(parsed.routePlans[0].capability, 'localization.translate');
   assert.deepEqual(parsed.probes, []);
 });
 
@@ -173,4 +177,5 @@ test('cli doctor fails when provider env vars are missing', () => {
   const parsed = JSON.parse(result.stdout);
   assert.equal(parsed.ok, false);
   assert.equal(parsed.envStatus.some((item) => item.ok === false), true);
+  assert.equal(parsed.providerReadiness.some((item) => item.hasApiKey === false), true);
 });
